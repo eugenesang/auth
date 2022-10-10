@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jengabit | Sign Up</title>
+    <link rel="shortcut icon" href="./files/buildalot-minimised-design.svg" type="image/x-icon">
+    <style>
+        @font-face {
+    font-family: quicksand;
+    src: url(./files/Quicksand-VariableFont_wght.ttf);
+}
+@font-face {
+    font-family: rubik;
+    src: url(./files/Rubik-VariableFont_wght.ttf);
+}
+@font-face {
+    font-family: nunito;
+    src: url(./files/Nunito-VariableFont_wght.ttf);
+}
+*{
+    font-family: quicksand, rubik, nunito;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    max-width: 100vw;
+    font-weight: 600;
+}
+body{
+    height:fit-content;
+    width: fit-content;
+    margin: auto;
+}
+::-webkit-scrollbar{
+    display: none;
+}
+
+.stroked-text{
+    font-family: rubik;
+    color: transparent;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: rgb(71,136,199);
+}
+.small-text{
+    -webkit-text-stroke-width: 1px;
+}
+nav{
+    width: fit-content;
+    margin: 5px auto;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: 0;
+}
+
+img{
+    max-width: 10rem;
+    position: relative;
+}
+
+nav div{
+    font-size: 3rem;
+    font-weight: 900;
+}
+nav div:nth-child(1){
+    text-align: right;
+}
+nav div:nth-child(2){
+    text-align: left;
+}
+
+
+h1{
+    text-align: center;
+    font-family: nunito;
+}
+
+section{
+    margin: 4px auto;
+    padding: 6px;
+    height: fit-content;
+}
+form{
+    height: fit-content;
+    width: fit-content;
+    padding: 25px; 
+    border-radius: 20px;
+    margin: 5px auto;
+    box-shadow: 0px 0px 10px 0px #074d7f;
+}
+
+label{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    height: 50px;
+    margin: 10px;
+}
+
+input {
+    border-bottom: 1px solid #074d7f;
+    min-width: 200px;
+    max-width: 400px;
+    width: 300px;
+    color:black;
+    background-color: white;
+    padding: 2.5px;
+    outline: none;
+}
+
+.entry-icon{
+    height: 30px;
+}
+
+#dob:hover{
+    content: Date Of Birth;
+}
+
+button{
+    background-color: #63cdd4;
+    margin: 5px auto;
+    padding: 10px;
+    border-radius: 5px;
+    display: block;
+}
+
+button:hover{
+    background-color: transparent;
+    box-shadow: 0px 0px 10px 0px #074d7f;
+}
+
+button:disabled:hover{
+    box-shadow: none;
+    background-color: #63cdd4;
+}
+
+
+    </style>
+    
+</head>
+<body>
+    <nav>
+        <div><img src="./files/buildalot-minimised-design.svg" alt="company logo"></div> <div class="stroked-text">Jengabit</div>
+    </nav>
+    <section id="content">
+        <h1>Create a <span class="stroked-text small-text">Jengabit</span> account</h1>
+        <form action="http://localhost:3001/create" method="post">
+            <label for="name">
+                <div><img src="./files/user-profile-svgrepo-com.svg" alt="" class="entry-icon"></div>
+                <div><input type="text" name="name" id="name" placeholder="Your Name" required></div>
+            </label>
+            <label for="email">
+                <div><img src="./files/584856bce0bb315b0f7675ad.png" alt="" class="entry-icon"></div>
+                <div><input type="email" name="email" id="email" placeholder="Email adress" required></div>
+            </label>
+            <label for="phone">
+                <div><img src="./files/phone.svg" alt="phone icon" class="entry-icon"></div>
+                <div><input type="tel" name="phone" id="phone" placeholder="Phone Number" required></div>
+            </label>
+
+            <label for="dateOfBirth">
+                <div><img src="./files/calendar-svgrepo-com.svg" alt="callender icon"></div>
+                <div id="dob"><input type="date" name="dateOfBirth" id="dateOfBirth"></div>
+            </label>
+            <label for="password">
+               <div> <img src="./files/password-76.svg" alt="password icon" class="entry-icon"></div>
+                <div><input type="password" name="password" id="password" placeholder="Password" required></div>
+            </label>
+            <label for="confirm-password">
+               <div> <img src="./files/confirm-password.svg" alt="confirm password icon" class="entry-icon"></div>
+                <div><input type="password" id="confirm-password" placeholder="Confirm Your Password" required></div>
+            </label>
+            <div id="pwd-message"></div>
+            <div id="pwd-match"></div>
+            <button type="submit" id="submit-btn">Create Account</button>
+        </form>
+    </section>
+    <script>
+        // validate password
+{
+    const pwdmsg=document.getElementById("pwd-message"),
+    pwdMatch=document.getElementById("pwd-match"),
+    pwdInput=document.getElementById("password"),
+    pwdConfirm=document.getElementById("confirm-password"),
+    submitBtn=document.getElementById("submit-btn");
+
+    const passwordStrength=pwd=>{
+        let strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})')
+        let mediumPassword = new RegExp('((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))')
+        if(strongPassword.test(pwd)){
+            return {color:"green", message:"Password OK", strength:3}
+        }else if(mediumPassword.test(pwd)){
+            return {color:"#ffc400", message:"Average password", strength:2};
+        }else {
+            return {color:"red", message:"weak password", strength:1};
+        }
+    }
+
+    pwdInput.onkeyup=e=>{
+        let {color, message}=passwordStrength(pwdInput.value);
+        pwdmsg.style.color=color;
+        pwdmsg.innerText=message;
+    }
+
+    pwdConfirm.onkeyup=e=>{
+        if(pwdConfirm.value == pwdInput.value){
+            pwdMatch.style.color="green";
+            pwdMatch.innerText="Passwords match perfectly";
+            submitBtn.disabled=false;
+        }else{
+            pwdMatch.style.color="red";
+            pwdMatch.innerText="Make sure the passwords match";
+            submitBtn.disabled=true;
+        }
+    }
+}
+
+    </script>
+</body>
+</html>
