@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 
 import accountRoute from './routes/account.js';
 import loginRoute from './routes/login.js'
+import { authCheck } from './middlewares/auth.js';
 
 const app = express();
 
@@ -25,3 +26,9 @@ app.get('/', (req, res)=>{
 
 app.use('/account', accountRoute);
 app.use('/login', loginRoute)
+
+app.get('/auth', authCheck, (req, res)=>{
+    res.status(200).json({
+        success: 'Authentication was a success'
+    })
+})
